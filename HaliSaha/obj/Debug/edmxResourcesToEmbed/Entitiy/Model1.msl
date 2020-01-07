@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HalıSahaModelStoreContainer" CdmEntityContainer="HalıSahaEntities">
+    <EntitySetMapping Name="KiralanmışSahaTablo">
+      <EntityTypeMapping TypeName="HalıSahaModel.KiralanmışSahaTablo">
+        <MappingFragment StoreEntitySet="KiralanmışSahaTablo">
+          <ScalarProperty Name="SemtID" ColumnName="SemtID" />
+          <ScalarProperty Name="SaatBaslangic" ColumnName="SaatBaslangic" />
+          <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+          <ScalarProperty Name="SahaID" ColumnName="SahaID" />
+          <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+          <ScalarProperty Name="KSID" ColumnName="KSID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KullaniciGirisTablo">
+      <EntityTypeMapping TypeName="HalıSahaModel.KullaniciGirisTablo">
+        <MappingFragment StoreEntitySet="KullaniciGirisTablo">
+          <ScalarProperty Name="KullaniciTipi" ColumnName="KullaniciTipi" />
+          <ScalarProperty Name="KullaniciSifre" ColumnName="KullaniciSifre" />
+          <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+          <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MevkiTablo">
+      <EntityTypeMapping TypeName="HalıSahaModel.MevkiTablo">
+        <MappingFragment StoreEntitySet="MevkiTablo">
+          <ScalarProperty Name="Mevki" ColumnName="Mevki" />
+          <ScalarProperty Name="MevkiID" ColumnName="MevkiID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OyuncuTablo">
+      <EntityTypeMapping TypeName="HalıSahaModel.OyuncuTablo">
+        <MappingFragment StoreEntitySet="OyuncuTablo">
+          <ScalarProperty Name="MacSaati" ColumnName="MacSaati" />
+          <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+          <ScalarProperty Name="SahaID" ColumnName="SahaID" />
+          <ScalarProperty Name="OyuncuSilmedurum" ColumnName="OyuncuSilmedurum" />
+          <ScalarProperty Name="Durum" ColumnName="Durum" />
+          <ScalarProperty Name="OyuncuTelefon" ColumnName="OyuncuTelefon" />
+          <ScalarProperty Name="MevkiID" ColumnName="MevkiID" />
+          <ScalarProperty Name="OyuncuSoyadi" ColumnName="OyuncuSoyadi" />
+          <ScalarProperty Name="OyuncuAdi" ColumnName="OyuncuAdi" />
+          <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+          <ScalarProperty Name="OyuncuID" ColumnName="OyuncuID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SahaTablo">
+      <EntityTypeMapping TypeName="HalıSahaModel.SahaTablo">
+        <MappingFragment StoreEntitySet="SahaTablo">
+          <ScalarProperty Name="SahaSilmeDurum" ColumnName="SahaSilmeDurum" />
+          <ScalarProperty Name="Adres" ColumnName="Adres" />
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+          <ScalarProperty Name="SemtID" ColumnName="SemtID" />
+          <ScalarProperty Name="SahaAdi" ColumnName="SahaAdi" />
+          <ScalarProperty Name="SahaID" ColumnName="SahaID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SemtTablo">
+      <EntityTypeMapping TypeName="HalıSahaModel.SemtTablo">
+        <MappingFragment StoreEntitySet="SemtTablo">
+          <ScalarProperty Name="SemtAdi" ColumnName="SemtAdi" />
+          <ScalarProperty Name="SemtID" ColumnName="SemtID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TakımTablo">
+      <EntityTypeMapping TypeName="HalıSahaModel.TakımTablo">
+        <MappingFragment StoreEntitySet="TakımTablo">
+          <ScalarProperty Name="MacSaati" ColumnName="MacSaati" />
+          <ScalarProperty Name="SahaID" ColumnName="SahaID" />
+          <ScalarProperty Name="TakımSilmedurum" ColumnName="TakımSilmedurum" />
+          <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+          <ScalarProperty Name="TakımDurum" ColumnName="TakımDurum" />
+          <ScalarProperty Name="SemtID" ColumnName="SemtID" />
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+          <ScalarProperty Name="TakımAdı" ColumnName="TakımAdı" />
+          <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+          <ScalarProperty Name="TakımID" ColumnName="TakımID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

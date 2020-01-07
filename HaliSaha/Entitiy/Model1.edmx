@@ -1,0 +1,634 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="HalıSahaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="KiralanmışSahaTablo">
+          <Key>
+            <PropertyRef Name="KSID" />
+          </Key>
+          <Property Name="KSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciID" Type="int" />
+          <Property Name="SahaID" Type="int" />
+          <Property Name="Tarih" Type="datetime" />
+          <Property Name="SaatBaslangic" Type="int" />
+          <Property Name="SemtID" Type="int" />
+        </EntityType>
+        <EntityType Name="KullaniciGirisTablo">
+          <Key>
+            <PropertyRef Name="KullaniciID" />
+          </Key>
+          <Property Name="KullaniciID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciAdi" Type="nvarchar" MaxLength="20" />
+          <Property Name="KullaniciSifre" Type="nvarchar" MaxLength="20" />
+          <Property Name="KullaniciTipi" Type="bit" />
+        </EntityType>
+        <EntityType Name="MevkiTablo">
+          <Key>
+            <PropertyRef Name="MevkiID" />
+          </Key>
+          <Property Name="MevkiID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Mevki" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="OyuncuTablo">
+          <Key>
+            <PropertyRef Name="OyuncuID" />
+          </Key>
+          <Property Name="OyuncuID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciID" Type="int" />
+          <Property Name="OyuncuAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OyuncuSoyadi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="MevkiID" Type="int" Nullable="false" />
+          <Property Name="OyuncuTelefon" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="Durum" Type="bit" Nullable="false" />
+          <Property Name="OyuncuSilmedurum" Type="bit" />
+          <Property Name="SahaID" Type="int" Nullable="false" />
+          <Property Name="Tarih" Type="datetime" />
+          <Property Name="MacSaati" Type="int" />
+        </EntityType>
+        <EntityType Name="SahaTablo">
+          <Key>
+            <PropertyRef Name="SahaID" />
+          </Key>
+          <Property Name="SahaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SahaAdi" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SemtID" Type="int" Nullable="false" />
+          <Property Name="Telefon" Type="nchar" MaxLength="11" Nullable="false" />
+          <Property Name="Adres" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SahaSilmeDurum" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SemtTablo">
+          <Key>
+            <PropertyRef Name="SemtID" />
+          </Key>
+          <Property Name="SemtID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SemtAdi" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TakımTablo">
+          <Key>
+            <PropertyRef Name="TakımID" />
+          </Key>
+          <Property Name="TakımID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciID" Type="int" />
+          <Property Name="TakımAdı" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="SemtID" Type="int" Nullable="false" />
+          <Property Name="TakımDurum" Type="bit" Nullable="false" />
+          <Property Name="Tarih" Type="datetime" />
+          <Property Name="TakımSilmedurum" Type="bit" Nullable="false" />
+          <Property Name="SahaID" Type="int" Nullable="false" />
+          <Property Name="MacSaati" Type="int" />
+        </EntityType>
+        <Association Name="FK_KiralanmışSahaTablo_KullaniciGirisTablo">
+          <End Role="KullaniciGirisTablo" Type="Self.KullaniciGirisTablo" Multiplicity="0..1" />
+          <End Role="KiralanmışSahaTablo" Type="Self.KiralanmışSahaTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciGirisTablo">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="KiralanmışSahaTablo">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KiralanmışSahaTablo_SahaTablo">
+          <End Role="SahaTablo" Type="Self.SahaTablo" Multiplicity="0..1" />
+          <End Role="KiralanmışSahaTablo" Type="Self.KiralanmışSahaTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SahaTablo">
+              <PropertyRef Name="SahaID" />
+            </Principal>
+            <Dependent Role="KiralanmışSahaTablo">
+              <PropertyRef Name="SahaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KiralanmışSahaTablo_SemtTablo">
+          <End Role="SemtTablo" Type="Self.SemtTablo" Multiplicity="0..1" />
+          <End Role="KiralanmışSahaTablo" Type="Self.KiralanmışSahaTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SemtTablo">
+              <PropertyRef Name="SemtID" />
+            </Principal>
+            <Dependent Role="KiralanmışSahaTablo">
+              <PropertyRef Name="SemtID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OyuncuTablo_KullaniciGirisTablo">
+          <End Role="KullaniciGirisTablo" Type="Self.KullaniciGirisTablo" Multiplicity="0..1" />
+          <End Role="OyuncuTablo" Type="Self.OyuncuTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciGirisTablo">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="OyuncuTablo">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OyuncuTablo_MevkiTablo">
+          <End Role="MevkiTablo" Type="Self.MevkiTablo" Multiplicity="1" />
+          <End Role="OyuncuTablo" Type="Self.OyuncuTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MevkiTablo">
+              <PropertyRef Name="MevkiID" />
+            </Principal>
+            <Dependent Role="OyuncuTablo">
+              <PropertyRef Name="MevkiID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OyuncuTablo_SahaTablo">
+          <End Role="SahaTablo" Type="Self.SahaTablo" Multiplicity="1" />
+          <End Role="OyuncuTablo" Type="Self.OyuncuTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SahaTablo">
+              <PropertyRef Name="SahaID" />
+            </Principal>
+            <Dependent Role="OyuncuTablo">
+              <PropertyRef Name="SahaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SahaTablo_SemtTablo">
+          <End Role="SemtTablo" Type="Self.SemtTablo" Multiplicity="1" />
+          <End Role="SahaTablo" Type="Self.SahaTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SemtTablo">
+              <PropertyRef Name="SemtID" />
+            </Principal>
+            <Dependent Role="SahaTablo">
+              <PropertyRef Name="SemtID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TakımTablo_KullaniciGirisTablo1">
+          <End Role="KullaniciGirisTablo" Type="Self.KullaniciGirisTablo" Multiplicity="0..1" />
+          <End Role="TakımTablo" Type="Self.TakımTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciGirisTablo">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="TakımTablo">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TakımTablo_SahaTablo">
+          <End Role="SahaTablo" Type="Self.SahaTablo" Multiplicity="1" />
+          <End Role="TakımTablo" Type="Self.TakımTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SahaTablo">
+              <PropertyRef Name="SahaID" />
+            </Principal>
+            <Dependent Role="TakımTablo">
+              <PropertyRef Name="SahaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TakımTablo_SemtTablo">
+          <End Role="SemtTablo" Type="Self.SemtTablo" Multiplicity="1" />
+          <End Role="TakımTablo" Type="Self.TakımTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SemtTablo">
+              <PropertyRef Name="SemtID" />
+            </Principal>
+            <Dependent Role="TakımTablo">
+              <PropertyRef Name="SemtID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HalıSahaModelStoreContainer">
+          <EntitySet Name="KiralanmışSahaTablo" EntityType="Self.KiralanmışSahaTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KullaniciGirisTablo" EntityType="Self.KullaniciGirisTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MevkiTablo" EntityType="Self.MevkiTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OyuncuTablo" EntityType="Self.OyuncuTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SahaTablo" EntityType="Self.SahaTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SemtTablo" EntityType="Self.SemtTablo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TakımTablo" EntityType="Self.TakımTablo" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_KiralanmışSahaTablo_KullaniciGirisTablo" Association="Self.FK_KiralanmışSahaTablo_KullaniciGirisTablo">
+            <End Role="KullaniciGirisTablo" EntitySet="KullaniciGirisTablo" />
+            <End Role="KiralanmışSahaTablo" EntitySet="KiralanmışSahaTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KiralanmışSahaTablo_SahaTablo" Association="Self.FK_KiralanmışSahaTablo_SahaTablo">
+            <End Role="SahaTablo" EntitySet="SahaTablo" />
+            <End Role="KiralanmışSahaTablo" EntitySet="KiralanmışSahaTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KiralanmışSahaTablo_SemtTablo" Association="Self.FK_KiralanmışSahaTablo_SemtTablo">
+            <End Role="SemtTablo" EntitySet="SemtTablo" />
+            <End Role="KiralanmışSahaTablo" EntitySet="KiralanmışSahaTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OyuncuTablo_KullaniciGirisTablo" Association="Self.FK_OyuncuTablo_KullaniciGirisTablo">
+            <End Role="KullaniciGirisTablo" EntitySet="KullaniciGirisTablo" />
+            <End Role="OyuncuTablo" EntitySet="OyuncuTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OyuncuTablo_MevkiTablo" Association="Self.FK_OyuncuTablo_MevkiTablo">
+            <End Role="MevkiTablo" EntitySet="MevkiTablo" />
+            <End Role="OyuncuTablo" EntitySet="OyuncuTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OyuncuTablo_SahaTablo" Association="Self.FK_OyuncuTablo_SahaTablo">
+            <End Role="SahaTablo" EntitySet="SahaTablo" />
+            <End Role="OyuncuTablo" EntitySet="OyuncuTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SahaTablo_SemtTablo" Association="Self.FK_SahaTablo_SemtTablo">
+            <End Role="SemtTablo" EntitySet="SemtTablo" />
+            <End Role="SahaTablo" EntitySet="SahaTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TakımTablo_KullaniciGirisTablo1" Association="Self.FK_TakımTablo_KullaniciGirisTablo1">
+            <End Role="KullaniciGirisTablo" EntitySet="KullaniciGirisTablo" />
+            <End Role="TakımTablo" EntitySet="TakımTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TakımTablo_SahaTablo" Association="Self.FK_TakımTablo_SahaTablo">
+            <End Role="SahaTablo" EntitySet="SahaTablo" />
+            <End Role="TakımTablo" EntitySet="TakımTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TakımTablo_SemtTablo" Association="Self.FK_TakımTablo_SemtTablo">
+            <End Role="SemtTablo" EntitySet="SemtTablo" />
+            <End Role="TakımTablo" EntitySet="TakımTablo" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HalıSahaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="HalıSahaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="KiralanmışSahaTablo" EntityType="HalıSahaModel.KiralanmışSahaTablo" />
+          <EntitySet Name="KullaniciGirisTablo" EntityType="HalıSahaModel.KullaniciGirisTablo" />
+          <EntitySet Name="MevkiTablo" EntityType="HalıSahaModel.MevkiTablo" />
+          <EntitySet Name="OyuncuTablo" EntityType="HalıSahaModel.OyuncuTablo" />
+          <EntitySet Name="SahaTablo" EntityType="HalıSahaModel.SahaTablo" />
+          <EntitySet Name="SemtTablo" EntityType="HalıSahaModel.SemtTablo" />
+          <EntitySet Name="TakımTablo" EntityType="HalıSahaModel.TakımTablo" />
+          <AssociationSet Name="FK_KiralanmışSahaTablo_KullaniciGirisTablo" Association="HalıSahaModel.FK_KiralanmışSahaTablo_KullaniciGirisTablo">
+            <End Role="KullaniciGirisTablo" EntitySet="KullaniciGirisTablo" />
+            <End Role="KiralanmışSahaTablo" EntitySet="KiralanmışSahaTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KiralanmışSahaTablo_SahaTablo" Association="HalıSahaModel.FK_KiralanmışSahaTablo_SahaTablo">
+            <End Role="SahaTablo" EntitySet="SahaTablo" />
+            <End Role="KiralanmışSahaTablo" EntitySet="KiralanmışSahaTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KiralanmışSahaTablo_SemtTablo" Association="HalıSahaModel.FK_KiralanmışSahaTablo_SemtTablo">
+            <End Role="SemtTablo" EntitySet="SemtTablo" />
+            <End Role="KiralanmışSahaTablo" EntitySet="KiralanmışSahaTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OyuncuTablo_KullaniciGirisTablo" Association="HalıSahaModel.FK_OyuncuTablo_KullaniciGirisTablo">
+            <End Role="KullaniciGirisTablo" EntitySet="KullaniciGirisTablo" />
+            <End Role="OyuncuTablo" EntitySet="OyuncuTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TakımTablo_KullaniciGirisTablo1" Association="HalıSahaModel.FK_TakımTablo_KullaniciGirisTablo1">
+            <End Role="KullaniciGirisTablo" EntitySet="KullaniciGirisTablo" />
+            <End Role="TakımTablo" EntitySet="TakımTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OyuncuTablo_MevkiTablo" Association="HalıSahaModel.FK_OyuncuTablo_MevkiTablo">
+            <End Role="MevkiTablo" EntitySet="MevkiTablo" />
+            <End Role="OyuncuTablo" EntitySet="OyuncuTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OyuncuTablo_SahaTablo" Association="HalıSahaModel.FK_OyuncuTablo_SahaTablo">
+            <End Role="SahaTablo" EntitySet="SahaTablo" />
+            <End Role="OyuncuTablo" EntitySet="OyuncuTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SahaTablo_SemtTablo" Association="HalıSahaModel.FK_SahaTablo_SemtTablo">
+            <End Role="SemtTablo" EntitySet="SemtTablo" />
+            <End Role="SahaTablo" EntitySet="SahaTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TakımTablo_SahaTablo" Association="HalıSahaModel.FK_TakımTablo_SahaTablo">
+            <End Role="SahaTablo" EntitySet="SahaTablo" />
+            <End Role="TakımTablo" EntitySet="TakımTablo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TakımTablo_SemtTablo" Association="HalıSahaModel.FK_TakımTablo_SemtTablo">
+            <End Role="SemtTablo" EntitySet="SemtTablo" />
+            <End Role="TakımTablo" EntitySet="TakımTablo" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="KiralanmışSahaTablo">
+          <Key>
+            <PropertyRef Name="KSID" />
+          </Key>
+          <Property Name="KSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciID" Type="Int32" />
+          <Property Name="SahaID" Type="Int32" />
+          <Property Name="Tarih" Type="DateTime" Precision="3" />
+          <Property Name="SaatBaslangic" Type="Int32" />
+          <Property Name="SemtID" Type="Int32" />
+          <NavigationProperty Name="KullaniciGirisTablo" Relationship="HalıSahaModel.FK_KiralanmışSahaTablo_KullaniciGirisTablo" FromRole="KiralanmışSahaTablo" ToRole="KullaniciGirisTablo" />
+          <NavigationProperty Name="SahaTablo" Relationship="HalıSahaModel.FK_KiralanmışSahaTablo_SahaTablo" FromRole="KiralanmışSahaTablo" ToRole="SahaTablo" />
+          <NavigationProperty Name="SemtTablo" Relationship="HalıSahaModel.FK_KiralanmışSahaTablo_SemtTablo" FromRole="KiralanmışSahaTablo" ToRole="SemtTablo" />
+        </EntityType>
+        <EntityType Name="KullaniciGirisTablo">
+          <Key>
+            <PropertyRef Name="KullaniciID" />
+          </Key>
+          <Property Name="KullaniciID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciAdi" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="KullaniciSifre" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="KullaniciTipi" Type="Boolean" />
+          <NavigationProperty Name="KiralanmışSahaTablo" Relationship="HalıSahaModel.FK_KiralanmışSahaTablo_KullaniciGirisTablo" FromRole="KullaniciGirisTablo" ToRole="KiralanmışSahaTablo" />
+          <NavigationProperty Name="OyuncuTablo" Relationship="HalıSahaModel.FK_OyuncuTablo_KullaniciGirisTablo" FromRole="KullaniciGirisTablo" ToRole="OyuncuTablo" />
+          <NavigationProperty Name="TakımTablo" Relationship="HalıSahaModel.FK_TakımTablo_KullaniciGirisTablo1" FromRole="KullaniciGirisTablo" ToRole="TakımTablo" />
+        </EntityType>
+        <EntityType Name="MevkiTablo">
+          <Key>
+            <PropertyRef Name="MevkiID" />
+          </Key>
+          <Property Name="MevkiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mevki" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OyuncuTablo" Relationship="HalıSahaModel.FK_OyuncuTablo_MevkiTablo" FromRole="MevkiTablo" ToRole="OyuncuTablo" />
+        </EntityType>
+        <EntityType Name="OyuncuTablo">
+          <Key>
+            <PropertyRef Name="OyuncuID" />
+          </Key>
+          <Property Name="OyuncuID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciID" Type="Int32" />
+          <Property Name="OyuncuAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OyuncuSoyadi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MevkiID" Type="Int32" Nullable="false" />
+          <Property Name="OyuncuTelefon" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="Durum" Type="Boolean" Nullable="false" />
+          <Property Name="OyuncuSilmedurum" Type="Boolean" />
+          <Property Name="SahaID" Type="Int32" Nullable="false" />
+          <Property Name="Tarih" Type="DateTime" Precision="3" />
+          <Property Name="MacSaati" Type="Int32" />
+          <NavigationProperty Name="KullaniciGirisTablo" Relationship="HalıSahaModel.FK_OyuncuTablo_KullaniciGirisTablo" FromRole="OyuncuTablo" ToRole="KullaniciGirisTablo" />
+          <NavigationProperty Name="MevkiTablo" Relationship="HalıSahaModel.FK_OyuncuTablo_MevkiTablo" FromRole="OyuncuTablo" ToRole="MevkiTablo" />
+          <NavigationProperty Name="SahaTablo" Relationship="HalıSahaModel.FK_OyuncuTablo_SahaTablo" FromRole="OyuncuTablo" ToRole="SahaTablo" />
+        </EntityType>
+        <EntityType Name="SahaTablo">
+          <Key>
+            <PropertyRef Name="SahaID" />
+          </Key>
+          <Property Name="SahaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SahaAdi" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SemtID" Type="Int32" Nullable="false" />
+          <Property Name="Telefon" Type="String" Nullable="false" MaxLength="11" FixedLength="true" Unicode="true" />
+          <Property Name="Adres" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SahaSilmeDurum" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="KiralanmışSahaTablo" Relationship="HalıSahaModel.FK_KiralanmışSahaTablo_SahaTablo" FromRole="SahaTablo" ToRole="KiralanmışSahaTablo" />
+          <NavigationProperty Name="OyuncuTablo" Relationship="HalıSahaModel.FK_OyuncuTablo_SahaTablo" FromRole="SahaTablo" ToRole="OyuncuTablo" />
+          <NavigationProperty Name="SemtTablo" Relationship="HalıSahaModel.FK_SahaTablo_SemtTablo" FromRole="SahaTablo" ToRole="SemtTablo" />
+          <NavigationProperty Name="TakımTablo" Relationship="HalıSahaModel.FK_TakımTablo_SahaTablo" FromRole="SahaTablo" ToRole="TakımTablo" />
+        </EntityType>
+        <EntityType Name="SemtTablo">
+          <Key>
+            <PropertyRef Name="SemtID" />
+          </Key>
+          <Property Name="SemtID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SemtAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="KiralanmışSahaTablo" Relationship="HalıSahaModel.FK_KiralanmışSahaTablo_SemtTablo" FromRole="SemtTablo" ToRole="KiralanmışSahaTablo" />
+          <NavigationProperty Name="SahaTablo" Relationship="HalıSahaModel.FK_SahaTablo_SemtTablo" FromRole="SemtTablo" ToRole="SahaTablo" />
+          <NavigationProperty Name="TakımTablo" Relationship="HalıSahaModel.FK_TakımTablo_SemtTablo" FromRole="SemtTablo" ToRole="TakımTablo" />
+        </EntityType>
+        <EntityType Name="TakımTablo">
+          <Key>
+            <PropertyRef Name="TakımID" />
+          </Key>
+          <Property Name="TakımID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciID" Type="Int32" />
+          <Property Name="TakımAdı" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Name="SemtID" Type="Int32" Nullable="false" />
+          <Property Name="TakımDurum" Type="Boolean" Nullable="false" />
+          <Property Name="Tarih" Type="DateTime" Precision="3" />
+          <Property Name="TakımSilmedurum" Type="Boolean" Nullable="false" />
+          <Property Name="SahaID" Type="Int32" Nullable="false" />
+          <Property Name="MacSaati" Type="Int32" />
+          <NavigationProperty Name="KullaniciGirisTablo" Relationship="HalıSahaModel.FK_TakımTablo_KullaniciGirisTablo1" FromRole="TakımTablo" ToRole="KullaniciGirisTablo" />
+          <NavigationProperty Name="SahaTablo" Relationship="HalıSahaModel.FK_TakımTablo_SahaTablo" FromRole="TakımTablo" ToRole="SahaTablo" />
+          <NavigationProperty Name="SemtTablo" Relationship="HalıSahaModel.FK_TakımTablo_SemtTablo" FromRole="TakımTablo" ToRole="SemtTablo" />
+        </EntityType>
+        <Association Name="FK_KiralanmışSahaTablo_KullaniciGirisTablo">
+          <End Type="HalıSahaModel.KullaniciGirisTablo" Role="KullaniciGirisTablo" Multiplicity="0..1" />
+          <End Type="HalıSahaModel.KiralanmışSahaTablo" Role="KiralanmışSahaTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciGirisTablo">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="KiralanmışSahaTablo">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KiralanmışSahaTablo_SahaTablo">
+          <End Type="HalıSahaModel.SahaTablo" Role="SahaTablo" Multiplicity="0..1" />
+          <End Type="HalıSahaModel.KiralanmışSahaTablo" Role="KiralanmışSahaTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SahaTablo">
+              <PropertyRef Name="SahaID" />
+            </Principal>
+            <Dependent Role="KiralanmışSahaTablo">
+              <PropertyRef Name="SahaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KiralanmışSahaTablo_SemtTablo">
+          <End Type="HalıSahaModel.SemtTablo" Role="SemtTablo" Multiplicity="0..1" />
+          <End Type="HalıSahaModel.KiralanmışSahaTablo" Role="KiralanmışSahaTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SemtTablo">
+              <PropertyRef Name="SemtID" />
+            </Principal>
+            <Dependent Role="KiralanmışSahaTablo">
+              <PropertyRef Name="SemtID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OyuncuTablo_KullaniciGirisTablo">
+          <End Type="HalıSahaModel.KullaniciGirisTablo" Role="KullaniciGirisTablo" Multiplicity="0..1" />
+          <End Type="HalıSahaModel.OyuncuTablo" Role="OyuncuTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciGirisTablo">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="OyuncuTablo">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TakımTablo_KullaniciGirisTablo1">
+          <End Type="HalıSahaModel.KullaniciGirisTablo" Role="KullaniciGirisTablo" Multiplicity="0..1" />
+          <End Type="HalıSahaModel.TakımTablo" Role="TakımTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciGirisTablo">
+              <PropertyRef Name="KullaniciID" />
+            </Principal>
+            <Dependent Role="TakımTablo">
+              <PropertyRef Name="KullaniciID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OyuncuTablo_MevkiTablo">
+          <End Type="HalıSahaModel.MevkiTablo" Role="MevkiTablo" Multiplicity="1" />
+          <End Type="HalıSahaModel.OyuncuTablo" Role="OyuncuTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MevkiTablo">
+              <PropertyRef Name="MevkiID" />
+            </Principal>
+            <Dependent Role="OyuncuTablo">
+              <PropertyRef Name="MevkiID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OyuncuTablo_SahaTablo">
+          <End Type="HalıSahaModel.SahaTablo" Role="SahaTablo" Multiplicity="1" />
+          <End Type="HalıSahaModel.OyuncuTablo" Role="OyuncuTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SahaTablo">
+              <PropertyRef Name="SahaID" />
+            </Principal>
+            <Dependent Role="OyuncuTablo">
+              <PropertyRef Name="SahaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SahaTablo_SemtTablo">
+          <End Type="HalıSahaModel.SemtTablo" Role="SemtTablo" Multiplicity="1" />
+          <End Type="HalıSahaModel.SahaTablo" Role="SahaTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SemtTablo">
+              <PropertyRef Name="SemtID" />
+            </Principal>
+            <Dependent Role="SahaTablo">
+              <PropertyRef Name="SemtID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TakımTablo_SahaTablo">
+          <End Type="HalıSahaModel.SahaTablo" Role="SahaTablo" Multiplicity="1" />
+          <End Type="HalıSahaModel.TakımTablo" Role="TakımTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SahaTablo">
+              <PropertyRef Name="SahaID" />
+            </Principal>
+            <Dependent Role="TakımTablo">
+              <PropertyRef Name="SahaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TakımTablo_SemtTablo">
+          <End Type="HalıSahaModel.SemtTablo" Role="SemtTablo" Multiplicity="1" />
+          <End Type="HalıSahaModel.TakımTablo" Role="TakımTablo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SemtTablo">
+              <PropertyRef Name="SemtID" />
+            </Principal>
+            <Dependent Role="TakımTablo">
+              <PropertyRef Name="SemtID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HalıSahaModelStoreContainer" CdmEntityContainer="HalıSahaEntities">
+          <EntitySetMapping Name="KiralanmışSahaTablo">
+            <EntityTypeMapping TypeName="HalıSahaModel.KiralanmışSahaTablo">
+              <MappingFragment StoreEntitySet="KiralanmışSahaTablo">
+                <ScalarProperty Name="SemtID" ColumnName="SemtID" />
+                <ScalarProperty Name="SaatBaslangic" ColumnName="SaatBaslangic" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="SahaID" ColumnName="SahaID" />
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="KSID" ColumnName="KSID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KullaniciGirisTablo">
+            <EntityTypeMapping TypeName="HalıSahaModel.KullaniciGirisTablo">
+              <MappingFragment StoreEntitySet="KullaniciGirisTablo">
+                <ScalarProperty Name="KullaniciTipi" ColumnName="KullaniciTipi" />
+                <ScalarProperty Name="KullaniciSifre" ColumnName="KullaniciSifre" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MevkiTablo">
+            <EntityTypeMapping TypeName="HalıSahaModel.MevkiTablo">
+              <MappingFragment StoreEntitySet="MevkiTablo">
+                <ScalarProperty Name="Mevki" ColumnName="Mevki" />
+                <ScalarProperty Name="MevkiID" ColumnName="MevkiID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OyuncuTablo">
+            <EntityTypeMapping TypeName="HalıSahaModel.OyuncuTablo">
+              <MappingFragment StoreEntitySet="OyuncuTablo">
+                <ScalarProperty Name="MacSaati" ColumnName="MacSaati" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="SahaID" ColumnName="SahaID" />
+                <ScalarProperty Name="OyuncuSilmedurum" ColumnName="OyuncuSilmedurum" />
+                <ScalarProperty Name="Durum" ColumnName="Durum" />
+                <ScalarProperty Name="OyuncuTelefon" ColumnName="OyuncuTelefon" />
+                <ScalarProperty Name="MevkiID" ColumnName="MevkiID" />
+                <ScalarProperty Name="OyuncuSoyadi" ColumnName="OyuncuSoyadi" />
+                <ScalarProperty Name="OyuncuAdi" ColumnName="OyuncuAdi" />
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="OyuncuID" ColumnName="OyuncuID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SahaTablo">
+            <EntityTypeMapping TypeName="HalıSahaModel.SahaTablo">
+              <MappingFragment StoreEntitySet="SahaTablo">
+                <ScalarProperty Name="SahaSilmeDurum" ColumnName="SahaSilmeDurum" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="SemtID" ColumnName="SemtID" />
+                <ScalarProperty Name="SahaAdi" ColumnName="SahaAdi" />
+                <ScalarProperty Name="SahaID" ColumnName="SahaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SemtTablo">
+            <EntityTypeMapping TypeName="HalıSahaModel.SemtTablo">
+              <MappingFragment StoreEntitySet="SemtTablo">
+                <ScalarProperty Name="SemtAdi" ColumnName="SemtAdi" />
+                <ScalarProperty Name="SemtID" ColumnName="SemtID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TakımTablo">
+            <EntityTypeMapping TypeName="HalıSahaModel.TakımTablo">
+              <MappingFragment StoreEntitySet="TakımTablo">
+                <ScalarProperty Name="MacSaati" ColumnName="MacSaati" />
+                <ScalarProperty Name="SahaID" ColumnName="SahaID" />
+                <ScalarProperty Name="TakımSilmedurum" ColumnName="TakımSilmedurum" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="TakımDurum" ColumnName="TakımDurum" />
+                <ScalarProperty Name="SemtID" ColumnName="SemtID" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="TakımAdı" ColumnName="TakımAdı" />
+                <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+                <ScalarProperty Name="TakımID" ColumnName="TakımID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
